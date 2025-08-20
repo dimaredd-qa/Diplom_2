@@ -12,7 +12,7 @@ def data_for_user():
     }
 
 @pytest.fixture
-def for_reg_delete_user(data_for_user):
+def for_delete_user(data_for_user):
     yield data_for_user
     token = get_auth_token(data_for_user["email"], data_for_user["password"])
     if token:

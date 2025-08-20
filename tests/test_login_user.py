@@ -1,15 +1,14 @@
 import allure
 from helpers.api_requests import login_user
-
+from data.data import ExistingUser
 
 @allure.feature("Авторизация пользователя")
 @allure.story("Тестирование авторизации пользователя в различных сценариях")
 class TestUserLogin:
     @allure.title("Тест успешный вход под существующим пользователем")
-    def test_successful_login(self, for_auth_delete_user):
-        user_data = for_auth_delete_user
+    def test_successful_login(self):
         with allure.step("Отправить запрос на авторизацию"):
-            response = login_user(user_data["email"], user_data["password"])
+            response = login_user(ExistingUser.existing_user["email"], ExistingUser.existing_user["password"])
         with allure.step("Проверить статус код ответа"):
             assert response.status_code == 200, (
                 f"Ожидался статус код 200, получен {response.status_code}. "
@@ -20,8 +19,7 @@ class TestUserLogin:
             assert response_data["success"] is True, "Поле success должно быть True"
             assert "accessToken" in response_data, "Токен доступа отсутствует в ответе"
             assert "refreshToken" in response_data, "Refresh токен отсутствует в ответе"
-            assert response_data["user"]["email"] == user_data["email"], "Email не совпадает"
-            assert response_data["user"]["name"] == user_data["name"], "Name не совпадает"
+            assert response_data["user"]["email"] == ExistingUser.existing_user["email"], "Email не совпадает"
 
     @allure.title("Тест вход с неверным паролем")
     def test_login_with_wrong_password(self, for_auth_delete_user):

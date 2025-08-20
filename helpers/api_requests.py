@@ -20,7 +20,7 @@ def create_order(order_data, headers=None):
 
 @allure.step("Удаление пользователя")
 def delete_user(token):
-    headers = {"Authorization": token}
+    headers = {"Authorization": f"Bearer {token}"}
     response = requests.delete(Endpoint.profile_user_url, headers=headers)
     return response
 

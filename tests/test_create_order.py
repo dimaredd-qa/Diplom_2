@@ -23,7 +23,7 @@ class TestCreateOrder:
             assert "number" in response_data["order"]
 
     @allure.title("Тест создание заказа без авторизации")
-    def test_create_order_unauthorized(self, for_reg_delete_user):
+    def test_create_order_unauthorized(self):
         with allure.step("Запрос на новый заказ без авторизации"):
             order_data = {"ingredients": DataBurger.burger_four_ingre}
             response = create_order(order_data)

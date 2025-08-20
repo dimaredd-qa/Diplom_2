@@ -15,5 +15,3 @@ def password_generator():
 def name_generator():
     generated_name = fake.first_name()
     return generated_name
-
-
